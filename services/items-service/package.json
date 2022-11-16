@@ -1,0 +1,19 @@
+{
+  "name": "items-service",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "grpc-tools": "^1.11.3",
+    "tsconfig": "*",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.7.3",
+    "@stargate-oss/stargate-grpc-node-client": "^0.2.3",
+    "cassandra-driver": "^4.6.4",
+    "dotenv": "^16.0.3",
+    "zod": "^3.19.1"
+  }
+}
