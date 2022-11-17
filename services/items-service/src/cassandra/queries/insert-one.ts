@@ -1,4 +1,4 @@
-import { query } from '../cassandra/utils'
+import { query } from '../utils'
 import { v4 as uuid } from 'uuid'
 
 interface values {

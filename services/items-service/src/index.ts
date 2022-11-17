@@ -1,18 +1,5 @@
-import { getAll, getOne, insertOne } from './queries'
+import { startServer } from './grpc'
 
-async function start() {
-  console.log('✅ Started')
-
-  // console.log(await getOne('f345gs'))
-  // console.log(
-  //   await insertOne({
-  //     name: 'wow',
-  //     description: 'wow',
-  //     isBought: true,
-  //     price: 2,
-  //   })
-  // )
-  // console.log(await getAll())
-}
-
-start()
+startServer(4000, () => {
+  console.log('✅ Server Started')
+})

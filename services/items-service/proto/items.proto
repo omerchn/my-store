@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package itemsPackage;
+
+import "google/protobuf/empty.proto";
+
+service ItemsService {
+  rpc addOne(Item) returns (Item);
+  rpc getOne(google.protobuf.Empty) returns (Item);
+  rpc getAll(google.protobuf.Empty) returns (Items);
+}
+
+message Item {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  bool isBought = 5;
+}
+
+message ItemNoId {
+  string name = 1;
+  string description = 2;
+  float price = 3;
+  bool isBought = 4;
+}
+
+message Items {
+  repeated Item items = 1;
+}

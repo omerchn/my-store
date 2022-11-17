@@ -1,4 +1,4 @@
-import { query } from '../cassandra/utils'
+import { query } from '../utils'
 
 export default async () => {
   return await query(

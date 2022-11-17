@@ -2,19 +2,27 @@
   "name": "items-service",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "gen": "test -d generated || mkdir generated && protoc --plugin=../../node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=\"./generated\" --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=outputServices=grpc-js ./proto/items.proto",
+    "start": "ts-node -T ./src/index.ts",
+    "test": "ts-node -T ./src/client-test.ts"
+  },
   "devDependencies": {
     "@types/node": "^18.11.9",
     "@types/uuid": "^8.3.4",
-    "grpc-tools": "^1.11.3",
+    "ts-node": "^10.9.1",
     "tsconfig": "*",
     "typescript": "^4.9.3"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
+    "@grpc/proto-loader": "^0.7.3",
+    "@protobuf-ts/protoc": "^2.8.2",
     "@stargate-oss/stargate-grpc-node-client": "^0.2.3",
     "cassandra-driver": "^4.6.4",
     "dotenv": "^16.0.3",
+    "grpc-tools": "^1.11.3",
+    "ts-proto": "^1.132.1",
     "uuid": "^9.0.0",
     "zod": "^3.19.1"
   }
