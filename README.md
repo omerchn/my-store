@@ -2,8 +2,10 @@
   Garage Sale
 </h1>
 
-### a website implementing React, GraphQL, Apollo, gRPC, Cassandra
+<h3 align="center">
+  A website implementing React, Apollo, GraphQL, gRPC, Cassandra
+</h3>
 
 &nbsp;
 
-![Garage Sale](garage-sale.png)
+![Garage Sale Planning](garage-sale.png)
