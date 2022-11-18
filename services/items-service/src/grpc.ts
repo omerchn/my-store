@@ -1,29 +1,17 @@
 import * as grpc from '@grpc/grpc-js'
-import * as protoLoader from '@grpc/proto-loader'
-import path from 'path'
 import { itemsService } from './services/itemsService'
-
-const packageDef = protoLoader.loadSync(
-  path.resolve(__dirname, '../proto/items.proto')
-)
-const grpcObject = grpc.loadPackageDefinition(packageDef)
-const itemsPackage = grpcObject.itemsPackage
+import { ItemsServiceService } from '../generated_items-service/items'
 
 export const server = new grpc.Server()
+server.addService(ItemsServiceService, itemsService)
 
-// @ts-ignore
-server.addService(itemsPackage.ItemsService.service, itemsService)
-
-export const startServer = (
-  port: number,
-  cb: (server: grpc.Server) => void
-) => {
+export const startServer = async (port: number) => {
   server.bindAsync(
     `0.0.0.0:${port}`,
     grpc.ServerCredentials.createInsecure(),
-    () => {
+    (err) => {
+      if (err) throw err
       server.start()
-      cb(server)
       return server
     }
   )

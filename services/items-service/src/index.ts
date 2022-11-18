@@ -1,5 +1,11 @@
 import { startServer } from './grpc'
 
-startServer(4000, () => {
-  console.log('✅ Server Started')
-})
+const run = async () => {
+  try {
+    await startServer(4000)
+    console.log('✅ Items Service Started')
+  } catch (err) {
+    console.log('❌ Error Starting Service', err)
+  }
+}
+run()

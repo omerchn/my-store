@@ -1,39 +1,18 @@
-import { ItemsServiceServer } from '../../generated/proto/items'
-import { getAll, getOne, insertOne } from '../cassandra/queries'
+import { ItemsServiceServer } from '../../generated_items-service/items'
+import { getAll, getOne, insertOne, deleteOne } from '../cassandra/queries'
 
 export const itemsService: ItemsServiceServer = {
-  getAll(call, callback) {
-    // placeholder
-    callback(null, {
-      items: [
-        {
-          id: 'wow',
-          name: 'wow',
-          description: 'wow',
-          price: 2.5,
-          isBought: false,
-        },
-      ],
-    })
+  async streamAll(call) {
+    ;(await getAll()).forEach((item) => call.write(item))
+    call.end()
   },
-  getOne(call, callback) {
-    // placeholder
-    callback(null, {
-      id: 'wow',
-      name: 'wow',
-      description: 'wow',
-      price: 2.5,
-      isBought: false,
-    })
+  async getOne(call, callback) {
+    callback(null, await getOne(call.request.id))
   },
-  addOne(call, callback) {
-    // placeholder
-    callback(null, {
-      id: 'wow',
-      name: 'wow',
-      description: 'wow',
-      price: 2.5,
-      isBought: false,
-    })
+  async addOne(call, callback) {
+    callback(null, await insertOne(call.request))
+  },
+  async deleteOne(call, callback) {
+    callback(null, await deleteOne(call.request.id))
   },
 }

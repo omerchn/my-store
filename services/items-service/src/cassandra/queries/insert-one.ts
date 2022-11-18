@@ -1,17 +1,18 @@
 import { query } from '../utils'
 import { v4 as uuid } from 'uuid'
+import type { Item, ItemNoId } from '../../../generated_items-service/items'
 
-interface values {
-  name: string
-  description: string
-  price: number
-  isBought: boolean
-}
-
-export default async (values: values) => {
-  return await query(
-    `INSERT INTO garagesale.items (id, name, description, price, isBought) VALUES ('${uuid()}', '${
-      values.name
-    }', '${values.description}', ${values.price}, ${values.isBought})`
-  )
+export default async (data: ItemNoId) => {
+  try {
+    const item = {
+      id: uuid(),
+      ...data,
+    }
+    await query(
+      `INSERT INTO garagesale.items (id, name, description, price, isBought) VALUES ('${item.id}', '${item.name}', '${item.description}', ${item.price}, ${item.isBought})`
+    )
+    return item as Item
+  } catch (err) {
+    console.log(1)
+  }
 }

@@ -5,7 +5,7 @@ const getGetFnName = (basic: number) => {
   if (basic === 13) return 'getString'
   if (basic === 8) return 'getFloat'
   if (basic === 4) return 'getBoolean'
-  return 'getString' // default
+  return 'getString' // to make ts happy
 }
 
 export const responseToArray = (response: Response) => {
@@ -18,7 +18,7 @@ export const responseToArray = (response: Response) => {
       getFnName: getGetFnName(col.getType()!.getBasic()),
     }))
 
-  const result: Array<object> = set.getRowsList().map((row) => {
+  const result: Array<unknown> = set.getRowsList().map((row) => {
     const rowObj: { [key: string]: any } = {}
     row.getValuesList().forEach((value, i) => {
       rowObj[columns[i].name] = (value as any)[columns[i].getFnName]()
