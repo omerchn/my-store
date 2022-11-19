@@ -1,11 +1,12 @@
 import { startServer } from './grpc'
 
 const run = async () => {
+  const port = 5000
   try {
-    await startServer(4000)
-    console.log('✅ Items Service Started')
+    await startServer(port)
+    console.log(`✅ Items Service Started (port ${port})`)
   } catch (err) {
-    console.log('❌ Error Starting Service', err)
+    console.log('❌ Error Starting Items Service', err)
   }
 }
 run()

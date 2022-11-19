@@ -1,0 +1,17 @@
+type itemsService_Item {
+  id: String
+  name: String
+  description: String
+  price: Float
+  isBought: Boolean
+}
+type itemsService_ItemNoId {
+  name: String
+  description: String
+  price: Float
+  isBought: Boolean
+}
+type itemsService_ItemId {
+  id: String
+}
+type google_protobuf_Empty

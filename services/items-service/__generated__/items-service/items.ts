@@ -16,7 +16,7 @@ import {
 import _m0 from "protobufjs/minimal";
 import { Empty } from "./google/protobuf/empty";
 
-export const protobufPackage = "itemsPackage";
+export const protobufPackage = "itemsService";
 
 export interface Item {
   id: string;
@@ -245,10 +245,10 @@ export const ItemId = {
   },
 };
 
-export type ItemsServiceService = typeof ItemsServiceService;
-export const ItemsServiceService = {
+export type ItemsService = typeof ItemsService;
+export const ItemsService = {
   addOne: {
-    path: "/itemsPackage.ItemsService/addOne",
+    path: "/itemsService.Items/addOne",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: ItemNoId) => Buffer.from(ItemNoId.encode(value).finish()),
@@ -257,7 +257,7 @@ export const ItemsServiceService = {
     responseDeserialize: (value: Buffer) => Item.decode(value),
   },
   getOne: {
-    path: "/itemsPackage.ItemsService/getOne",
+    path: "/itemsService.Items/getOne",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: ItemId) => Buffer.from(ItemId.encode(value).finish()),
@@ -266,7 +266,7 @@ export const ItemsServiceService = {
     responseDeserialize: (value: Buffer) => Item.decode(value),
   },
   deleteOne: {
-    path: "/itemsPackage.ItemsService/deleteOne",
+    path: "/itemsService.Items/deleteOne",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: ItemId) => Buffer.from(ItemId.encode(value).finish()),
@@ -275,7 +275,7 @@ export const ItemsServiceService = {
     responseDeserialize: (value: Buffer) => ItemId.decode(value),
   },
   streamAll: {
-    path: "/itemsPackage.ItemsService/streamAll",
+    path: "/itemsService.Items/streamAll",
     requestStream: false,
     responseStream: true,
     requestSerialize: (value: Empty) => Buffer.from(Empty.encode(value).finish()),
@@ -285,14 +285,14 @@ export const ItemsServiceService = {
   },
 } as const;
 
-export interface ItemsServiceServer extends UntypedServiceImplementation {
+export interface ItemsServer extends UntypedServiceImplementation {
   addOne: handleUnaryCall<ItemNoId, Item>;
   getOne: handleUnaryCall<ItemId, Item>;
   deleteOne: handleUnaryCall<ItemId, ItemId>;
   streamAll: handleServerStreamingCall<Empty, Item>;
 }
 
-export interface ItemsServiceClient extends Client {
+export interface ItemsClient extends Client {
   addOne(request: ItemNoId, callback: (error: ServiceError | null, response: Item) => void): ClientUnaryCall;
   addOne(
     request: ItemNoId,
@@ -333,12 +333,9 @@ export interface ItemsServiceClient extends Client {
   streamAll(request: Empty, metadata?: Metadata, options?: Partial<CallOptions>): ClientReadableStream<Item>;
 }
 
-export const ItemsServiceClient = makeGenericClientConstructor(
-  ItemsServiceService,
-  "itemsPackage.ItemsService",
-) as unknown as {
-  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): ItemsServiceClient;
-  service: typeof ItemsServiceService;
+export const ItemsClient = makeGenericClientConstructor(ItemsService, "itemsService.Items") as unknown as {
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): ItemsClient;
+  service: typeof ItemsService;
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

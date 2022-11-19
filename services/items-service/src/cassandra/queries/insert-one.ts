@@ -1,6 +1,6 @@
 import { query } from '../utils'
 import { v4 as uuid } from 'uuid'
-import type { Item, ItemNoId } from '../../../generated_items-service/items'
+import type { Item, ItemNoId } from '../../../__generated__/items-service/items'
 
 export default async (data: ItemNoId) => {
   try {

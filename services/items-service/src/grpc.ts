@@ -1,18 +1,20 @@
 import * as grpc from '@grpc/grpc-js'
-import { itemsService } from './services/itemsService'
-import { ItemsServiceService } from '../generated_items-service/items'
+import { itemsService } from './services/items'
+import { ItemsService } from '../__generated__/items-service/items'
 
 export const server = new grpc.Server()
-server.addService(ItemsServiceService, itemsService)
+server.addService(ItemsService, itemsService)
 
 export const startServer = async (port: number) => {
-  server.bindAsync(
-    `0.0.0.0:${port}`,
-    grpc.ServerCredentials.createInsecure(),
-    (err) => {
-      if (err) throw err
-      server.start()
-      return server
-    }
-  )
+  return new Promise<grpc.Server>((resolve, reject) => {
+    server.bindAsync(
+      `0.0.0.0:${port}`,
+      grpc.ServerCredentials.createInsecure(),
+      (err) => {
+        if (err) return reject(err)
+        server.start()
+        resolve(server)
+      }
+    )
+  })
 }

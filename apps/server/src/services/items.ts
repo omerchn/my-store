@@ -1,13 +1,14 @@
 import * as grpc from '@grpc/grpc-js'
-import { Empty } from '../generated_items-service/google/protobuf/empty'
+import { Empty } from '../../__generated__/items-service/google/protobuf/empty'
 import {
   Item,
+  ItemId,
   ItemNoId,
-  ItemsServiceClient,
-} from '../generated_items-service/items'
+  ItemsClient,
+} from '../../__generated__/items-service/items'
 
-const itemsClient = new ItemsServiceClient(
-  'localhost:4000',
+const itemsClient = new ItemsClient(
+  'localhost:5000',
   grpc.credentials.createInsecure()
 )
 
@@ -33,6 +34,15 @@ export const getOne = async (id: string) => {
 export const addOne = async (data: ItemNoId) => {
   return new Promise<Item>((resolve, reject) => {
     itemsClient.addOne(data, (err, res) => {
+      if (err) return reject(err)
+      resolve(res)
+    })
+  })
+}
+
+export const deleteOne = async (id: string) => {
+  return new Promise<ItemId>((resolve, reject) => {
+    itemsClient.deleteOne({ id }, (err, res) => {
       if (err) return reject(err)
       resolve(res)
     })

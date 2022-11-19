@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package itemsPackage;
+package itemsService;
 
 import "google/protobuf/empty.proto";
 
-service ItemsService {
+service Items {
   rpc addOne(ItemNoId) returns (Item);
   rpc getOne(ItemId) returns (Item);
   rpc deleteOne(ItemId) returns (ItemId);

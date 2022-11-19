@@ -1,0 +1,6 @@
+#import "./__generated__/items-service/items.graphql"
+
+type Query {
+  items: [itemsService_Item!]!
+  item(id: String!): itemsService_Item
+}

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUT_DIR="./generated_items-service"
+OUT_DIR="./__generated__/items-service"
 PROTO_DIR="../../proto/items-service"
 
 mkdir -p ${OUT_DIR}

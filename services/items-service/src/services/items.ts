@@ -1,7 +1,7 @@
-import { ItemsServiceServer } from '../../generated_items-service/items'
+import { ItemsServer } from '../../__generated__/items-service/items'
 import { getAll, getOne, insertOne, deleteOne } from '../cassandra/queries'
 
-export const itemsService: ItemsServiceServer = {
+export const itemsService: ItemsServer = {
   async streamAll(call) {
     ;(await getAll()).forEach((item) => call.write(item))
     call.end()
