@@ -5,7 +5,7 @@ package itemsService;
 import "google/protobuf/empty.proto";
 
 service Items {
-  rpc addOne(ItemNoId) returns (Item);
+  rpc addOne(ItemInput) returns (Item);
   rpc getOne(ItemId) returns (Item);
   rpc deleteOne(ItemId) returns (ItemId);
   rpc streamAll(google.protobuf.Empty) returns (stream Item);
@@ -19,11 +19,10 @@ message Item {
   bool isBought = 5;
 }
 
-message ItemNoId {
+message ItemInput {
   string name = 1;
   string description = 2;
   double price = 3;
-  bool isBought = 4;
 }
 
 message ItemId {

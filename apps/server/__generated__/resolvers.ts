@@ -14,24 +14,51 @@ export type Scalars = {
   Float: number;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  item?: Maybe<ItemsService_Item>;
-  items: Array<ItemsService_Item>;
-};
-
-
-export type QueryItemArgs = {
-  id: Scalars['String'];
-};
-
-export type ItemsService_Item = {
-  __typename?: 'itemsService_Item';
+export type Item = {
+  __typename?: 'Item';
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   isBought?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+};
+
+export type ItemId = {
+  __typename?: 'ItemId';
+  id: Scalars['String'];
+};
+
+export type ItemInput = {
+  description: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addItem: Item;
+  deleteItem: ItemId;
+};
+
+
+export type MutationAddItemArgs = {
+  item: ItemInput;
+};
+
+
+export type MutationDeleteItemArgs = {
+  id: Scalars['String'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  item?: Maybe<Item>;
+  items: Array<Item>;
+};
+
+
+export type QueryItemArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -105,26 +132,27 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  Item: ResolverTypeWrapper<Item>;
+  ItemId: ResolverTypeWrapper<ItemId>;
+  ItemInput: ItemInput;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  itemsService_Item: ResolverTypeWrapper<ItemsService_Item>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Float: Scalars['Float'];
+  Item: Item;
+  ItemId: ItemId;
+  ItemInput: ItemInput;
+  Mutation: {};
   Query: {};
   String: Scalars['String'];
-  itemsService_Item: ItemsService_Item;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  item?: Resolver<Maybe<ResolversTypes['itemsService_Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'id'>>;
-  items?: Resolver<Array<ResolversTypes['itemsService_Item']>, ParentType, ContextType>;
-};
-
-export type ItemsService_ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['itemsService_Item'] = ResolversParentTypes['itemsService_Item']> = {
+export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   isBought?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -133,8 +161,25 @@ export type ItemsService_ItemResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ItemIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemId'] = ResolversParentTypes['ItemId']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addItem?: Resolver<ResolversTypes['Item'], ParentType, ContextType, RequireFields<MutationAddItemArgs, 'item'>>;
+  deleteItem?: Resolver<ResolversTypes['ItemId'], ParentType, ContextType, RequireFields<MutationDeleteItemArgs, 'id'>>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'id'>>;
+  items?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  Item?: ItemResolvers<ContextType>;
+  ItemId?: ItemIdResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  itemsService_Item?: ItemsService_ItemResolvers<ContextType>;
 };
 

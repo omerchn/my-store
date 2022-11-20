@@ -26,11 +26,10 @@ export interface Item {
   isBought: boolean;
 }
 
-export interface ItemNoId {
+export interface ItemInput {
   name: string;
   description: string;
   price: number;
-  isBought: boolean;
 }
 
 export interface ItemId {
@@ -122,12 +121,12 @@ export const Item = {
   },
 };
 
-function createBaseItemNoId(): ItemNoId {
-  return { name: "", description: "", price: 0, isBought: false };
+function createBaseItemInput(): ItemInput {
+  return { name: "", description: "", price: 0 };
 }
 
-export const ItemNoId = {
-  encode(message: ItemNoId, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ItemInput = {
+  encode(message: ItemInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -137,16 +136,13 @@ export const ItemNoId = {
     if (message.price !== 0) {
       writer.uint32(25).double(message.price);
     }
-    if (message.isBought === true) {
-      writer.uint32(32).bool(message.isBought);
-    }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ItemNoId {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ItemInput {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseItemNoId();
+    const message = createBaseItemInput();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -159,9 +155,6 @@ export const ItemNoId = {
         case 3:
           message.price = reader.double();
           break;
-        case 4:
-          message.isBought = reader.bool();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -170,30 +163,27 @@ export const ItemNoId = {
     return message;
   },
 
-  fromJSON(object: any): ItemNoId {
+  fromJSON(object: any): ItemInput {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
       price: isSet(object.price) ? Number(object.price) : 0,
-      isBought: isSet(object.isBought) ? Boolean(object.isBought) : false,
     };
   },
 
-  toJSON(message: ItemNoId): unknown {
+  toJSON(message: ItemInput): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     message.description !== undefined && (obj.description = message.description);
     message.price !== undefined && (obj.price = message.price);
-    message.isBought !== undefined && (obj.isBought = message.isBought);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ItemNoId>, I>>(object: I): ItemNoId {
-    const message = createBaseItemNoId();
+  fromPartial<I extends Exact<DeepPartial<ItemInput>, I>>(object: I): ItemInput {
+    const message = createBaseItemInput();
     message.name = object.name ?? "";
     message.description = object.description ?? "";
     message.price = object.price ?? 0;
-    message.isBought = object.isBought ?? false;
     return message;
   },
 };
@@ -251,8 +241,8 @@ export const ItemsService = {
     path: "/itemsService.Items/addOne",
     requestStream: false,
     responseStream: false,
-    requestSerialize: (value: ItemNoId) => Buffer.from(ItemNoId.encode(value).finish()),
-    requestDeserialize: (value: Buffer) => ItemNoId.decode(value),
+    requestSerialize: (value: ItemInput) => Buffer.from(ItemInput.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => ItemInput.decode(value),
     responseSerialize: (value: Item) => Buffer.from(Item.encode(value).finish()),
     responseDeserialize: (value: Buffer) => Item.decode(value),
   },
@@ -286,21 +276,21 @@ export const ItemsService = {
 } as const;
 
 export interface ItemsServer extends UntypedServiceImplementation {
-  addOne: handleUnaryCall<ItemNoId, Item>;
+  addOne: handleUnaryCall<ItemInput, Item>;
   getOne: handleUnaryCall<ItemId, Item>;
   deleteOne: handleUnaryCall<ItemId, ItemId>;
   streamAll: handleServerStreamingCall<Empty, Item>;
 }
 
 export interface ItemsClient extends Client {
-  addOne(request: ItemNoId, callback: (error: ServiceError | null, response: Item) => void): ClientUnaryCall;
+  addOne(request: ItemInput, callback: (error: ServiceError | null, response: Item) => void): ClientUnaryCall;
   addOne(
-    request: ItemNoId,
+    request: ItemInput,
     metadata: Metadata,
     callback: (error: ServiceError | null, response: Item) => void,
   ): ClientUnaryCall;
   addOne(
-    request: ItemNoId,
+    request: ItemInput,
     metadata: Metadata,
     options: Partial<CallOptions>,
     callback: (error: ServiceError | null, response: Item) => void,

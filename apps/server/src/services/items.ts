@@ -3,7 +3,7 @@ import { Empty } from '../../__generated__/items-service/google/protobuf/empty'
 import {
   Item,
   ItemId,
-  ItemNoId,
+  ItemInput,
   ItemsClient,
 } from '../../__generated__/items-service/items'
 
@@ -31,7 +31,7 @@ export const getOne = async (id: string) => {
   })
 }
 
-export const addOne = async (data: ItemNoId) => {
+export const addOne = async (data: ItemInput) => {
   return new Promise<Item>((resolve, reject) => {
     itemsClient.addOne(data, (err, res) => {
       if (err) return reject(err)

@@ -1,6 +1,27 @@
-#import "./__generated__/items-service/items.graphql"
+type Item {
+  id: String
+  name: String
+  description: String
+  price: Float
+  isBought: Boolean
+}
+
+input ItemInput {
+  name: String!
+  description: String!
+  price: Float!
+}
+
+type ItemId {
+  id: String!
+}
 
 type Query {
-  items: [itemsService_Item!]!
-  item(id: String!): itemsService_Item
+  items: [Item!]!
+  item(id: String!): Item
+}
+
+type Mutation {
+  addItem(item: ItemInput!): Item!
+  deleteItem(id: String!): ItemId!
 }
