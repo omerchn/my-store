@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "gen-proto-ts": "sh ../../proto/items-service/generate-typescript.sh",
+    "gen-proto-ts": "sh ../../services/items-service/proto/generate-typescript.sh",
     "gen-graphql-ts": "graphql-codegen --config codegen.yml",
     "gen": "npm-run-all --parallel gen-proto-ts gen-graphql-ts",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts"

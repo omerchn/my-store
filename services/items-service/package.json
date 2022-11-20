@@ -4,7 +4,7 @@
   "private": true,
   "main": "proto/export.ts",
   "scripts": {
-    "gen": "sh ../../proto/items-service/generate-typescript.sh",
+    "gen": "sh ./proto/generate-typescript.sh",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts"
   },
   "dependencies": {

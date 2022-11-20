@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OUT_DIR="./__generated__/items-service"
-PROTO_DIR="../../proto/items-service"
+PROTO_DIR="../../services/items-service/proto"
 
 mkdir -p ${OUT_DIR}
 
