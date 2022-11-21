@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js'
-import { Empty } from '../../__generated__/items-service/google/protobuf/empty'
 import {
   Item,
+  Empty,
   ItemId,
   ItemInput,
   ItemsClient,

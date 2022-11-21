@@ -2,13 +2,11 @@ syntax = "proto3";
 
 package itemsService;
 
-import "google/protobuf/empty.proto";
-
 service Items {
   rpc addOne(ItemInput) returns (Item);
   rpc getOne(ItemId) returns (Item);
   rpc deleteOne(ItemId) returns (ItemId);
-  rpc streamAll(google.protobuf.Empty) returns (stream Item);
+  rpc streamAll(Empty) returns (stream Item);
 }
 
 message Item {
@@ -29,3 +27,4 @@ message ItemId {
   string id = 1;
 }
 
+message Empty {}
