@@ -5,10 +5,12 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { resolvers } from './resolvers'
 
 const run = async () => {
+  const schema = await loadSchema('schema.graphql', {
+    loaders: [new GraphQLFileLoader()],
+  })
+
   const server = new ApolloServer<BaseContext>({
-    typeDefs: await loadSchema('schema.graphql', {
-      loaders: [new GraphQLFileLoader()],
-    }),
+    typeDefs: schema,
     resolvers,
   })
 

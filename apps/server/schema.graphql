@@ -1,3 +1,5 @@
+# types and inputs
+
 type Item {
   id: String
   name: String
@@ -15,6 +17,8 @@ input ItemInput {
 type ItemId {
   id: String!
 }
+
+# queries and mutations
 
 type Query {
   items: [Item!]!
