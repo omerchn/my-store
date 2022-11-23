@@ -1,0 +1,1 @@
+mkdir -p ./__generated__/items-service && grpc_tools_node_protoc --plugin=../../node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=./__generated__/items-service --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=outputServices=grpc-js --proto_path=../../services/items-service/proto items.proto
