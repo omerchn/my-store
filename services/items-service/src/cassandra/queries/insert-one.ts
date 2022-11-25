@@ -6,17 +6,13 @@ import type {
 } from '../../../__generated__/items-service/items'
 
 export default async (data: ItemInput) => {
-  try {
-    const item: Item = {
-      id: uuid(),
-      isBought: false,
-      ...data,
-    }
-    await query(
-      `INSERT INTO garagesale.items (id, name, description, price, isBought) VALUES ('${item.id}', '${item.name}', '${item.description}', ${item.price}, ${item.isBought})`
-    )
-    return item as Item
-  } catch (err) {
-    console.log(1)
+  const item: Item = {
+    id: uuid(),
+    bought: false,
+    ...data,
   }
+  await query(
+    `INSERT INTO garagesale.items (id, name, description, price, bought) VALUES ('${item.id}', '${item.name}', '${item.description}', ${item.price}, ${item.bought})`
+  )
+  return item as Item
 }

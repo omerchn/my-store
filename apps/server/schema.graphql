@@ -5,7 +5,11 @@ type Item {
   name: String
   description: String
   price: Float
-  isBought: Boolean
+  bought: Boolean
+}
+
+input FilterBought {
+  bought: Boolean!
 }
 
 input ItemInput {
@@ -21,7 +25,7 @@ type ItemId {
 # queries and mutations
 
 type Query {
-  items: [Item!]!
+  items(filterBought: FilterBought): [Item!]!
   item(id: String!): Item
 }
 

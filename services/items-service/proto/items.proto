@@ -6,7 +6,7 @@ service Items {
   rpc addOne(ItemInput) returns (Item);
   rpc getOne(ItemId) returns (Item);
   rpc deleteOne(ItemId) returns (ItemId);
-  rpc streamAll(Empty) returns (stream Item);
+  rpc streamAll(FilterBought) returns (stream Item);
 }
 
 message Item {
@@ -14,7 +14,11 @@ message Item {
   string name = 2;
   string description = 3;
   double price = 4;
-  bool isBought = 5;
+  bool bought = 5;
+}
+
+message FilterBought {
+  optional bool bought = 1;
 }
 
 message ItemInput {
@@ -26,5 +30,3 @@ message ItemInput {
 message ItemId {
   string id = 1;
 }
-
-message Empty {}

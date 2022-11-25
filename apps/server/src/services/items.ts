@@ -1,10 +1,10 @@
 import * as grpc from '@grpc/grpc-js'
 import {
   Item,
-  Empty,
   ItemId,
   ItemInput,
   ItemsClient,
+  FilterBought,
 } from '../../__generated__/items-service/items'
 
 const itemsClient = new ItemsClient(
@@ -12,10 +12,10 @@ const itemsClient = new ItemsClient(
   grpc.credentials.createInsecure()
 )
 
-export const getAll = () => {
+export const getAll = (filterBought: FilterBought) => {
   return new Promise<Array<Item>>((resolve, reject) => {
     const items: Array<Item> = []
-    const stream = itemsClient.streamAll(Empty)
+    const stream = itemsClient.streamAll(filterBought)
     stream.on('data', (data) => items.push(Item.fromJSON(data)))
     stream.on('error', (err) => reject(err))
     stream.on('end', () => resolve(items))

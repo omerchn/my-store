@@ -3,7 +3,8 @@ import { Resolvers } from '../__generated__/resolvers'
 
 export const resolvers: Resolvers = {
   Query: {
-    items: async () => await items.getAll(),
+    items: async (_, { filterBought }) =>
+      await items.getAll(filterBought || {}),
     item: async (_, { id }) => await items.getOne(id),
   },
   Mutation: {

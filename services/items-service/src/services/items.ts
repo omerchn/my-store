@@ -3,7 +3,7 @@ import { getAll, getOne, insertOne, deleteOne } from '../cassandra/queries'
 
 export const itemsService: ItemsServer = {
   async streamAll(call) {
-    ;(await getAll()).forEach((item) => call.write(item))
+    ;(await getAll(call.request)).forEach((item) => call.write(item))
     call.end()
   },
   async getOne(call, callback) {
