@@ -1,0 +1,30 @@
+query findItem($id: ID!) {
+  item(id: $id) {
+    ...ItemFields
+  }
+}
+
+query findItems($filterBought: FilterBought!) {
+  items(filterBought: $filterBought) {
+    ...ItemFields
+  }
+}
+
+mutation addItem($item: ItemInput!) {
+  addItem(item: $item) {
+    ...ItemFields
+  }
+}
+mutation deleteItem($id: ID!) {
+  deleteItem(id: $id) {
+    id
+  }
+}
+
+fragment ItemFields on Item {
+  id
+  name
+  description
+  price
+  bought
+}

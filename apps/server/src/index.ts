@@ -5,7 +5,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { resolvers } from './resolvers'
 
 const run = async () => {
-  const schema = await loadSchema('schema.graphql', {
+  const schema = await loadSchema('graphql/schema.graphql', {
     loaders: [new GraphQLFileLoader()],
   })
 

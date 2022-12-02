@@ -19,17 +19,17 @@ input ItemInput {
 }
 
 type ItemId {
-  id: String!
+  id: ID!
 }
 
 # queries and mutations
 
 type Query {
   items(filterBought: FilterBought): [Item!]!
-  item(id: String!): Item
+  item(id: ID!): Item
 }
 
 type Mutation {
   addItem(item: ItemInput!): Item!
-  deleteItem(id: String!): ItemId!
+  deleteItem(id: ID!): ItemId!
 }
