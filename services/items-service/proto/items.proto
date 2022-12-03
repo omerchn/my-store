@@ -7,6 +7,7 @@ service Items {
   rpc getOne(ItemId) returns (Item);
   rpc deleteOne(ItemId) returns (ItemId);
   rpc streamAll(FilterBought) returns (stream Item);
+  rpc markBought(ItemId) returns (ItemId);
 }
 
 message Item {

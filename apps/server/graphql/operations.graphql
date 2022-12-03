@@ -20,6 +20,11 @@ mutation deleteItem($id: ID!) {
     id
   }
 }
+mutation markBought($id: ID!) {
+  markBought(id: $id) {
+    id
+  }
+}
 
 fragment ItemFields on Item {
   id

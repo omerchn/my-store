@@ -48,3 +48,12 @@ export const deleteOne = async (id: string) => {
     })
   })
 }
+
+export const markBought = async (id: string) => {
+  return new Promise<ItemId>((resolve, reject) => {
+    itemsClient.markBought({ id }, (err, res) => {
+      if (err) return reject(err)
+      resolve(res)
+    })
+  })
+}

@@ -1,5 +1,11 @@
 import { ItemsServer } from '../../__generated__/items-service/items'
-import { getAll, getOne, insertOne, deleteOne } from '../cassandra/queries'
+import {
+  getAll,
+  getOne,
+  insertOne,
+  deleteOne,
+  updateOne,
+} from '../cassandra/queries'
 
 export const itemsService: ItemsServer = {
   async streamAll(call) {
@@ -14,5 +20,8 @@ export const itemsService: ItemsServer = {
   },
   async deleteOne(call, callback) {
     callback(null, await deleteOne(call.request.id))
+  },
+  async markBought(call, callback) {
+    callback(null, await updateOne(call.request.id))
   },
 }

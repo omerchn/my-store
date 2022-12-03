@@ -10,5 +10,6 @@ export const resolvers: Resolvers = {
   Mutation: {
     addItem: async (_, { item }) => await items.addOne(item),
     deleteItem: async (_, { id }) => await items.deleteOne(id),
+    markBought: async (_, { id }) => await items.markBought(id),
   },
 }

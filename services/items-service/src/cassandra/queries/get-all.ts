@@ -6,9 +6,10 @@ import type {
 
 export default async (filterBought: FilterBought) => {
   const res = await query(
-    'SELECT * FROM garagesale.items' + filterBought.bought !== undefined
-      ? ` WHERE bought = ${filterBought.bought}`
-      : ''
+    'SELECT * FROM garagesale.items' +
+      (filterBought.bought !== undefined
+        ? ` WHERE bought = ${filterBought.bought}`
+        : '')
   )
   return res as Array<Item>
 }
