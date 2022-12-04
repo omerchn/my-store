@@ -3,10 +3,10 @@ syntax = "proto3";
 package itemsService;
 
 service Items {
-  rpc addOne(ItemInput) returns (Item);
-  rpc getOne(ItemId) returns (Item);
-  rpc deleteOne(ItemId) returns (ItemId);
   rpc streamAll(FilterBought) returns (stream Item);
+  rpc getOne(ItemId) returns (Item);
+  rpc addOne(ItemInput) returns (Item);
+  rpc deleteOne(ItemId) returns (ItemId);
   rpc markBought(ItemId) returns (ItemId);
 }
 

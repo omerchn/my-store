@@ -1,14 +1,14 @@
-import { Query, Response } from '@stargate-oss/stargate-grpc-node-client'
-import { promisifiedClient } from '.'
+import * as stargate from '@stargate-oss/stargate-grpc-node-client'
+import { promisifiedClient } from './connect'
 
 const getGetFnName = (basic: number) => {
   if (basic === 13) return 'getString'
   if (basic === 8) return 'getFloat'
   if (basic === 4) return 'getBoolean'
-  return 'getString' // to make ts happy
+  return 'getString'
 }
 
-export const responseToArray = (response: Response) => {
+export const responseToArray = (response: stargate.Response) => {
   const set = response.getResultSet()
   if (!set) return []
   const columns: Array<{ name: string; getFnName: string }> = set
@@ -29,7 +29,7 @@ export const responseToArray = (response: Response) => {
 }
 
 export const query = async (qString: string) => {
-  const query = new Query()
+  const query = new stargate.Query()
   query.setCql(qString)
   return responseToArray(await promisifiedClient.executeQuery(query))
 }

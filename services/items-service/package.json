@@ -4,13 +4,16 @@
   "private": true,
   "main": "proto/export.ts",
   "scripts": {
-    "gen": "sh ./proto/generate-typescript.sh",
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts"
+    "gen": "sh ./proto/generate-ts.sh",
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-ts-proto.ts",
+    "dev:mali": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-mali.ts"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
+    "@grpc/proto-loader": "^0.7.3",
     "@stargate-oss/stargate-grpc-node-client": "^0.2.3",
     "dotenv": "^16.0.3",
+    "mali": "^0.47.1",
     "uuid": "^9.0.0",
     "zod": "^3.19.1"
   },

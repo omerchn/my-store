@@ -4,7 +4,7 @@ import { loadSchema } from '@graphql-tools/load'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { resolvers } from './resolvers'
 
-const run = async () => {
+const start = async () => {
   const schema = await loadSchema('graphql/schema.graphql', {
     loaders: [new GraphQLFileLoader()],
   })
@@ -23,4 +23,4 @@ const run = async () => {
     console.log('❌ Error Starting GraphQL Server', err)
   }
 }
-run()
+start()
