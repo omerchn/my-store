@@ -1,11 +1,14 @@
 <h1 align="center">
-  Garage Sale
+  My Store
 </h1>
 
 <h3 align="center">
-  A website implementing React, Apollo, GraphQL, gRPC, Cassandra
+  E-commerce website implementing React, Apollo, GraphQL, gRPC and Cassandra.
+</h3>
+<h3 align="center">
+  Monorepo'd using Turborepo.
 </h3>
 
 &nbsp;
 
-![Garage Sale Planning](garage-sale.png)
+![Plan Graph](my-store.png)

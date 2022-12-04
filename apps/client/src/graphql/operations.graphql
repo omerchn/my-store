@@ -1,10 +1,10 @@
-query findItem($id: ID!) {
+query getItem($id: ID!) {
   item(id: $id) {
     ...ItemFields
   }
 }
 
-query findItems($filterBought: FilterBought!) {
+query getItems($filterBought: FilterBought!) {
   items(filterBought: $filterBought) {
     ...ItemFields
   }

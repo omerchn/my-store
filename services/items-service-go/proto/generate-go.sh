@@ -1,1 +1,0 @@
-protoc --proto_path=proto --go_out=out --go-grpc_out=out --go_opt=paths=source_relative items.proto
