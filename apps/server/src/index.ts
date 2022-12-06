@@ -7,7 +7,7 @@ const server = new ApolloServer({ schema })
 startStandaloneServer(server, {
   listen: { port: 4000 },
 })
-  .then((url) => {
+  .then(({ url }) => {
     console.log(`✅ GraphQL Server Started (${url})`)
   })
   .catch((err) => {

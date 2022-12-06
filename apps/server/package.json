@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "gen:proto-ts": "sh ../../services/items-service/proto/generate-ts.sh",
-    "gen:graphql-resolvers-ts": "graphql-codegen --config codegen.yml",
-    "gen": "npm-run-all --parallel gen:proto-ts gen:graphql-resolvers-ts",
+    "gen:items-service": "sh ../../services/items-service/proto/generate-ts.sh",
+    "gen": "npm-run-all --parallel gen:items-service",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts"
   },
   "dependencies": {
