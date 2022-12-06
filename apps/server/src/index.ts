@@ -3,15 +3,17 @@ import { startStandaloneServer } from '@apollo/server/standalone'
 import { loadSchema } from '@graphql-tools/load'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { resolvers } from './resolvers'
+import { schema } from '../graphql/schema'
 
 const start = async () => {
-  const schema = await loadSchema('graphql/schema.graphql', {
-    loaders: [new GraphQLFileLoader()],
-  })
+  // const typeDefs = await loadSchema('graphql/schema.graphql', {
+  //   loaders: [new GraphQLFileLoader()],
+  // })
 
   const server = new ApolloServer<BaseContext>({
-    typeDefs: schema,
-    resolvers,
+    schema,
+    // typeDefs,
+    // resolvers,
   })
 
   try {

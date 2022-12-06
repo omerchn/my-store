@@ -5,7 +5,7 @@ import * as queries from './stargate-cassandra/queries'
 // init server
 export const server = new grpc.Server()
 
-// items service implementation
+// implement RPCs
 const itemsServiceImplementation: generated.ItemsServer = {
   async streamAll(call) {
     ;(await queries.getAll(call.request)).forEach((item) => call.write(item))
