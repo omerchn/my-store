@@ -8,6 +8,7 @@ const PROTO_PATH = path.resolve(__dirname, '../proto/items.proto')
 const app = new Mali(PROTO_PATH, 'Items')
 
 // implement RPCs
+// ❌ not type safe
 app.use({
   streamAll: async (ctx: Mali.Context<any>) => {
     const rStream = new stream.Readable({ objectMode: true })

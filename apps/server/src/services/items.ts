@@ -1,3 +1,5 @@
+// warps the generated items service callback-based RPCs in Promises
+
 import * as grpc from '@grpc/grpc-js'
 import * as itemsService from '../../__generated__/items-service/items'
 
