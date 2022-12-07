@@ -13,18 +13,18 @@ function keyIn<I>(key: keyof I) {
 export const Item = objectType({
   name: 'Item',
   definition(t) {
-    t.id(keyIn<ItemInterface>('id'))
-    t.string(keyIn<ItemInterface>('name'))
-    t.string(keyIn<ItemInterface>('description'))
-    t.float(keyIn<ItemInterface>('price'))
-    t.boolean(keyIn<ItemInterface>('bought'))
+    t.nonNull.id(keyIn<ItemInterface>('id'))
+    t.nonNull.string(keyIn<ItemInterface>('name'))
+    t.nonNull.string(keyIn<ItemInterface>('description'))
+    t.nonNull.float(keyIn<ItemInterface>('price'))
+    t.nonNull.boolean(keyIn<ItemInterface>('bought'))
   },
 })
 
 export const ItemId = objectType({
   name: 'ItemId',
   definition(t) {
-    t.id(keyIn<ItemIdInterface>('id'))
+    t.nonNull.id(keyIn<ItemIdInterface>('id'))
   },
 })
 

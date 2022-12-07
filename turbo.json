@@ -4,13 +4,13 @@
     "gen": {
       "outputs": ["__generated__/**"]
     },
-    "build": {
-      "dependsOn": ["^build", "gen"],
-      "outputs": ["dist/**"]
-    },
     "dev": {
       "dependsOn": ["gen"],
       "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build", "gen"],
+      "outputs": ["dist/**"]
     }
   }
 }
