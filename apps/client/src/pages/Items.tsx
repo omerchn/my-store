@@ -1,10 +1,14 @@
 import { useGetItemsQuery } from '../__generated__/types-and-hooks'
 
-export default function ItemsPage() {
+interface Props {
+  bought: boolean
+}
+
+export default function ItemsPage(props: Props) {
   const { data, loading } = useGetItemsQuery({
     variables: {
       filterBought: {
-        bought: false,
+        bought: props.bought,
       },
     },
   })
@@ -16,7 +20,7 @@ export default function ItemsPage() {
       {data?.items.map((item) => (
         <li key={item.id}>
           <span>name: {item.name}</span>
-          <span> is bought: {item.bought ? 'v' : 'x'}</span>
+          <span> bought: {item.bought ? 'v' : 'x'}</span>
         </li>
       ))}
     </ul>
