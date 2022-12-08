@@ -1,62 +1,50 @@
 import { objectType, inputObjectType } from 'nexus'
-import { ObjectDefinitionBlock, InputDefinitionBlock } from 'nexus/dist/core'
+import { def } from './nexus-utils'
 import {
-  Item as ItemInterface,
-  ItemId as ItemIdInterface,
-  ItemInput as ItemInputInterface,
-  FilterBought as FilterBoughtInterface,
+  Item,
+  ItemId,
+  ItemInput,
+  FilterBought,
 } from '../__generated__/items-service/items'
 
-function def<I>(
-  t: ObjectDefinitionBlock<any> | InputDefinitionBlock<any>,
-  defObj: Record<
-    keyof I,
-    <FieldName extends string>(name: FieldName, ...params: any) => void
-  >
-): void {
-  for (let key in defObj) {
-    defObj[key].bind(t)(key)
-  }
-}
-
-export const Item = objectType({
+export const item = objectType({
   name: 'Item',
   definition(t) {
-    def<ItemInterface>(t, {
-      id: t.nonNull.string,
-      name: t.nonNull.string,
-      description: t.nonNull.string,
-      price: t.nonNull.float,
-      bought: t.nonNull.boolean,
+    def<Item>(t.nonNull, {
+      id: 'id',
+      name: 'string',
+      description: 'string',
+      price: 'float',
+      bought: 'boolean',
     })
   },
 })
 
-export const ItemId = objectType({
+export const itemId = objectType({
   name: 'ItemId',
   definition(t) {
-    def<ItemIdInterface>(t, {
-      id: t.nonNull.id,
+    def<ItemId>(t.nonNull, {
+      id: 'id',
     })
   },
 })
 
-export const ItemInput = inputObjectType({
+export const itemInput = inputObjectType({
   name: 'ItemInput',
   definition(t) {
-    def<ItemInputInterface>(t, {
-      name: t.nonNull.string,
-      description: t.nonNull.string,
-      price: t.nonNull.float,
+    def<ItemInput>(t.nonNull, {
+      name: 'string',
+      description: 'string',
+      price: 'float',
     })
   },
 })
 
-export const FilterBought = inputObjectType({
+export const filterBought = inputObjectType({
   name: 'FilterBought',
   definition(t) {
-    def<FilterBoughtInterface>(t, {
-      bought: t.nonNull.boolean,
+    def<FilterBought>(t.nonNull, {
+      bought: 'boolean',
     })
   },
 })

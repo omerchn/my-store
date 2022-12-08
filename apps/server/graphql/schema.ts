@@ -1,6 +1,6 @@
 import path from 'path'
 import { objectType, arg, nonNull, idArg, makeSchema } from 'nexus'
-import { FilterBought, Item, ItemId, ItemInput } from './types'
+import { filterBought, item, itemId, itemInput } from './types'
 import * as items from '../src/services/items'
 
 export const schema = makeSchema({
@@ -9,16 +9,16 @@ export const schema = makeSchema({
       name: 'Query',
       definition(t) {
         t.nonNull.list.nonNull.field('items', {
-          type: Item,
+          type: item,
           args: {
-            filterBought: arg({ type: FilterBought }),
+            filterBought: arg({ type: filterBought }),
           },
           async resolve(_, { filterBought }) {
             return await items.getAll(filterBought || {})
           },
         })
         t.field('item', {
-          type: Item,
+          type: item,
           args: {
             id: nonNull(idArg()),
           },
@@ -33,16 +33,16 @@ export const schema = makeSchema({
       name: 'Mutation',
       definition(t) {
         t.nonNull.field('addItem', {
-          type: Item,
+          type: item,
           args: {
-            item: arg({ type: nonNull(ItemInput) }),
+            item: arg({ type: nonNull(itemInput) }),
           },
           async resolve(_, { item }) {
             return await items.addOne(item)
           },
         })
         t.nonNull.field('deleteItem', {
-          type: ItemId,
+          type: itemId,
           args: {
             id: nonNull(idArg()),
           },
@@ -51,7 +51,7 @@ export const schema = makeSchema({
           },
         })
         t.nonNull.field('markBought', {
-          type: ItemId,
+          type: itemId,
           args: {
             id: nonNull(idArg()),
           },
@@ -63,21 +63,8 @@ export const schema = makeSchema({
     }),
   ],
 
-  // sourceTypes: {
-  //   modules: [
-  //     {
-  //       module: path.join(
-  //         __dirname,
-  //         '..',
-  //         '__generated__/items-service/items.ts'
-  //       ),
-  //       alias: 'items-service',
-  //     },
-  //   ],
-  // },
-
   outputs: {
-    typegen: path.join(__dirname, '__generated__', 'nexus-typegen.ts'),
-    schema: path.join(__dirname, '__generated__', 'schema.graphql'),
+    typegen: path.join(__dirname, 'nexus-typegen.ts'),
+    schema: path.join(__dirname, 'schema.graphql'),
   },
 })

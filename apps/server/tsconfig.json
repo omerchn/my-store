@@ -1,6 +1,6 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "target": "ES2020"
   }
 }

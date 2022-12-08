@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:server dev:gen",
     "dev:server": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts",
-    "dev:gen": "nodemon --exec npm run gen --watch ../../services/items-service/proto/items.proto",
+    "dev:gen": "nodemon --exec sh ../../services/items-service/proto/generate-ts.sh --watch ../../services/items-service/proto/items.proto",
     "gen": "sh ../../services/items-service/proto/generate-ts.sh",
     "build": "tsc"
   },

@@ -2,7 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "gen": {
-      "outputs": ["__generated__/**"]
+      "outputs": ["__generated__/**"],
+      "cache": false
     },
     "dev": {
       "dependsOn": ["gen"],
