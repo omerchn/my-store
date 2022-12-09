@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel --continue=false",
+    "dev": "turbo run dev",
     "gen": "turbo run gen"
   },
   "devDependencies": {
