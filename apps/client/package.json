@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:client dev:gen",
     "dev:client": "vite --open",
-    "dev:gen": "graphql-codegen --watch graphql/operations.graphql --watch ../server/graphql/__generated__/schema.graphql",
+    "dev:gen": "graphql-codegen --watch",
     "gen": "graphql-codegen",
     "build": "tsc && vite build"
   },

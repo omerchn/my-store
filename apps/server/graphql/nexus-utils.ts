@@ -9,11 +9,11 @@ type DefTypes = {
 type DefObj<I> = {
   [Key in keyof I]: I[Key] extends string | undefined
     ? DefTypes['string']
-    : I[Key] extends boolean | undefined
-    ? DefTypes['boolean']
     : I[Key] extends number | undefined
     ? DefTypes['number']
-    : DefTypes['string']
+    : I[Key] extends boolean | undefined
+    ? DefTypes['boolean']
+    : DefTypes['string'] | DefTypes['number'] | DefTypes['boolean']
 }
 
 export function def<I>(
