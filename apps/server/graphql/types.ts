@@ -1,16 +1,16 @@
 import { objectType, inputObjectType } from 'nexus'
 import { def } from './nexus-utils'
 import {
-  Item,
-  ItemId,
-  ItemInput,
-  FilterBought,
+  Item as ItemType,
+  ItemId as ItemIdType,
+  ItemInput as ItemInputType,
+  FilterBought as FilterBoughtType,
 } from '../__generated__/items-service/items'
 
-export const item = objectType({
+export const Item = objectType({
   name: 'Item',
   definition(t) {
-    def<Item>(t.nonNull, {
+    def<ItemType>(t.nonNull, {
       id: 'id',
       name: 'string',
       description: 'string',
@@ -20,19 +20,19 @@ export const item = objectType({
   },
 })
 
-export const itemId = objectType({
+export const ItemId = objectType({
   name: 'ItemId',
   definition(t) {
-    def<ItemId>(t.nonNull, {
+    def<ItemIdType>(t.nonNull, {
       id: 'id',
     })
   },
 })
 
-export const itemInput = inputObjectType({
+export const ItemInput = inputObjectType({
   name: 'ItemInput',
   definition(t) {
-    def<ItemInput>(t.nonNull, {
+    def<ItemInputType>(t.nonNull, {
       name: 'string',
       description: 'string',
       price: 'float',
@@ -40,10 +40,10 @@ export const itemInput = inputObjectType({
   },
 })
 
-export const filterBought = inputObjectType({
+export const FilterBought = inputObjectType({
   name: 'FilterBought',
   definition(t) {
-    def<FilterBought>(t.nonNull, {
+    def<FilterBoughtType>(t.nonNull, {
       bought: 'boolean',
     })
   },

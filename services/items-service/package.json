@@ -5,9 +5,9 @@
   "main": "proto/export.ts",
   "scripts": {
     "build": "tsc",
-    "gen": "sh ./proto/generate-ts.sh",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-ts-proto.ts",
-    "dev:mali": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-mali.ts"
+    "dev:mali": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-mali.ts",
+    "__gen:service": "sh ./proto/generate-ts.sh"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",

@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "gen": "turbo run gen --parallel"
+    "dev": "turbo run dev --parallel --continue=false",
+    "gen": "turbo run gen"
   },
   "devDependencies": {
     "prettier": "latest",

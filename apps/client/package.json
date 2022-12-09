@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:client dev:gen",
-    "dev:client": "vite --open",
-    "dev:gen": "graphql-codegen --watch",
-    "gen": "graphql-codegen",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "dev": "npm-run-all --parallel __dev:client __dev:gen",
+    "__dev:client": "vite --open",
+    "__dev:gen": "graphql-codegen --watch",
+    "__gen:client": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.7.2",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.17",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
