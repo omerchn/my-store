@@ -10,18 +10,12 @@
       "cache": false
     },
     "gen": {
-      "dependsOn": ["gen:client"]
-    },
-    "gen:client": {
-      "dependsOn": ["gen:server"],
-      "outputs": ["src/__generated__/**"]
-    },
-    "gen:server": {
-      "dependsOn": ["gen:service"],
-      "outputs": ["__generated__/**", "graphql/__generated__/**"]
-    },
-    "gen:service": {
-      "outputs": ["__generated__/**"]
+      "outputs": [
+        "__generated__/**",
+        "graphql/__generated__/**",
+        "src/__generated__/**"
+      ],
+      "cache": false
     },
     "validate-env": {
       "cache": false

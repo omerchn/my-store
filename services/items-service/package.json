@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-ts-proto.ts",
     "dev:mali": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-mali.ts",
-    "gen:service": "sh ./proto/generate-ts.sh",
+    "gen": "sh ./proto/generate-ts.sh",
     "validate-env": "ts-node src/env.ts"
   },
   "dependencies": {
