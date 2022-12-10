@@ -5,10 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "npm-run-all --parallel __dev:client __dev:gen",
-    "__dev:client": "vite --open",
-    "__dev:gen": "graphql-codegen --watch",
-    "__gen:client": "graphql-codegen"
+    "dev": "vite",
+    "gen:client": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.7.2",
@@ -28,7 +26,6 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
-    "npm-run-all": "^4.1.5",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   }

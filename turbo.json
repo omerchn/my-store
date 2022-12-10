@@ -6,21 +6,25 @@
       "outputs": ["dist/**"]
     },
     "dev": {
-      "dependsOn": ["gen"],
+      "dependsOn": ["gen", "validate-env"],
       "cache": false
     },
     "gen": {
-      "dependsOn": ["__gen:client"]
+      "dependsOn": ["gen:client"]
     },
-    "__gen:client": {
-      "dependsOn": ["__gen:server", "__gen:service"],
+    "gen:client": {
+      "dependsOn": ["gen:server"],
       "outputs": ["src/__generated__/**"]
     },
-    "__gen:server": {
+    "gen:server": {
+      "dependsOn": ["gen:service"],
       "outputs": ["__generated__/**", "graphql/__generated__/**"]
     },
-    "__gen:service": {
+    "gen:service": {
       "outputs": ["__generated__/**"]
+    },
+    "validate-env": {
+      "cache": false
     }
   }
 }

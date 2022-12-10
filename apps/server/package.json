@@ -4,10 +4,8 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "dev": "npm-run-all --parallel __dev:server __dev:gen",
-    "__dev:server": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts",
-    "__dev:gen": "nodemon --exec sh ../../services/items-service/proto/generate-ts.sh --watch ../../services/items-service/proto/items.proto",
-    "__gen:server": "sh ../../services/items-service/proto/generate-ts.sh && ts-node --transpile-only graphql/schema.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/index.ts",
+    "gen:server": "sh ../../services/items-service/proto/generate-ts.sh && ts-node graphql/schema.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.1.1",
@@ -17,8 +15,6 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
-    "nodemon": "^2.0.20",
-    "npm-run-all": "^4.1.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "ts-proto": "^1.135.0",
