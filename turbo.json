@@ -10,11 +10,7 @@
       "cache": false
     },
     "gen": {
-      "outputs": [
-        "__generated__/**",
-        "graphql/__generated__/**",
-        "src/__generated__/**"
-      ],
+      "outputs": ["__generated__/**"],
       "cache": false
     },
     "validate-env": {

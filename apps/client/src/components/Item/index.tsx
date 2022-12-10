@@ -1,4 +1,4 @@
-import { Item as ItemType } from '../../__generated__/types-and-hooks'
+import { Item as ItemType } from '../../../__generated__/types-and-hooks'
 
 // components
 import Card from '@mui/material/Card'

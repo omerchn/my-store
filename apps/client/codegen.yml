@@ -1,7 +1,7 @@
-schema: '../server/graphql/__generated__/schema.graphql'
+schema: '../server/__generated__/graphql/schema.graphql'
 documents: './graphql/operations.graphql'
 generates:
-  './src/__generated__/types-and-hooks.tsx':
+  '__generated__/types-and-hooks.tsx':
     plugins:
       - 'typescript'
       - 'typescript-operations'

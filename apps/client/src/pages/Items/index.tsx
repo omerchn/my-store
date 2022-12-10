@@ -1,4 +1,4 @@
-import { useGetItemsQuery } from '../../__generated__/types-and-hooks'
+import { useGetItemsQuery } from '../../../__generated__/types-and-hooks'
 
 // components
 import Item from '../../components/Item'
