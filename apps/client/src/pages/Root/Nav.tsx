@@ -4,9 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
-// styles
-import './Nav.scss'
-
 export default function Nav() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -17,7 +14,7 @@ export default function Nav() {
 
   return (
     <nav>
-      <Tabs value={pathname} onChange={handleChange}>
+      <Tabs value={pathname} onChange={handleChange} centered>
         <Tab label="home" value="/" />
         <Tab label="bought" value="/bought" />
       </Tabs>

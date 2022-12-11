@@ -20,7 +20,8 @@ export default function Item(props: Props) {
       <Card
         sx={{
           margin: '.5em',
-          minWidth: '24em',
+          width: '24em',
+          maxWidth: '100%',
         }}
         variant="outlined"
       >

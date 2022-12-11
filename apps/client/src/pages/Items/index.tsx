@@ -22,6 +22,8 @@ export default function ItemsPage(props: Props) {
     <Box
       sx={{
         padding: '2em 2.5em',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <CircularProgress />
@@ -32,6 +34,7 @@ export default function ItemsPage(props: Props) {
         padding: '1em',
         display: 'flex',
         flexWrap: 'wrap',
+        justifyContent: 'center',
       }}
     >
       {data?.items.map((item) => (
