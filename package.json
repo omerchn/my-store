@@ -8,8 +8,8 @@
     "services/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "npm run gen && turbo run build",
+    "dev": "npm run gen && turbo run dev",
     "gen": "turbo run gen --filter=./services/* --filter=server && turbo run gen --filter=client"
   },
   "devDependencies": {

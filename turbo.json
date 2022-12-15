@@ -2,11 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "gen"],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
     "dev": {
-      "dependsOn": ["gen", "validate-env"],
+      "dependsOn": ["validate-env"],
       "cache": false
     },
     "gen": {
