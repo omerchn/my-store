@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run gen && turbo run build",
     "dev": "npm run gen && turbo run dev",
-    "gen": "turbo run gen --filter=./services/* --filter=server && turbo run gen --filter=client"
+    "gen": "turbo run gen:services gen:server && turbo run gen:client"
   },
   "devDependencies": {
     "prettier": "latest",

@@ -2,19 +2,31 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "gen"],
       "outputs": ["dist/**"]
     },
     "dev": {
       "dependsOn": ["validate-env"],
       "cache": false
     },
-    "gen": {
-      "outputs": ["__generated__/**"],
-      "cache": false
-    },
     "validate-env": {
       "cache": false
+    },
+    "gen:services": {
+      "outputs": ["__generated__/**"],
+      "inputs": ["proto/**"]
+    },
+    "gen:server": {
+      "outputs": ["__generated__/**"],
+      "inputs": ["graphql/**"]
+    },
+    "gen:client": {
+      "outputs": ["__generated__/**"],
+      "inputs": [
+        "codegen.yml",
+        "graphql/**",
+        "../server/__generated__/graphql/**"
+      ]
     }
   }
 }

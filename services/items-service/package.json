@@ -7,8 +7,8 @@
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-ts-proto.ts",
     "dev:mali": "ts-node-dev --respawn --transpile-only --exit-child ./src/server-mali.ts",
-    "gen": "sh ./proto/generate-ts.sh",
-    "validate-env": "ts-node src/env.ts"
+    "gen:services": "sh ./proto/generate-ts.sh",
+    "validate-env": "ts-node --transpile-only src/env.ts"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",

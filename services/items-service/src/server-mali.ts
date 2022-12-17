@@ -3,7 +3,7 @@ import Mali from 'mali'
 import stream from 'stream'
 import * as queries from './stargate-cassandra/queries'
 
-// init mali app
+// init server
 const PROTO_PATH = path.resolve(__dirname, '../proto/items.proto')
 const app = new Mali(PROTO_PATH, 'Items')
 
