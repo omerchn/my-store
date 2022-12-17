@@ -3,13 +3,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // pages
 import ItemsPage from './pages/Items'
 import Root from './pages/Root'
-import ErrorPage from './pages/Error'
+import NotFoundPage from './pages/NotFound'
+import ItemPage from './pages/Item'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '/',
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '/bought',
         element: <ItemsPage bought={true} />,
+      },
+      {
+        path: '/item/:itemId',
+        element: <ItemPage />,
       },
     ],
   },

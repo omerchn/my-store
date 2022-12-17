@@ -13,8 +13,33 @@ export default function Nav() {
   }
 
   return (
-    <nav>
-      <Tabs value={pathname} onChange={handleChange} centered>
+    <nav
+      style={{
+        backgroundColor: '#F7FAFC',
+        boxShadow: 'inset 0 -1px #eee',
+      }}
+    >
+      <Tabs
+        value={pathname.includes('item') ? 'hidden' : pathname}
+        onChange={handleChange}
+        centered
+        TabIndicatorProps={
+          pathname.includes('item')
+            ? {
+                style: { display: 'none' },
+              }
+            : {}
+        }
+      >
+        <Tab
+          label="hidden"
+          value="hidden"
+          sx={{
+            width: '0',
+            minWidth: '0',
+            padding: '0',
+          }}
+        />
         <Tab label="home" value="/" />
         <Tab label="bought" value="/bought" />
       </Tabs>

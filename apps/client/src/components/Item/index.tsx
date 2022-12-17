@@ -8,9 +8,11 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Grow from '@mui/material/Grow'
+import { Link } from 'react-router-dom'
 
 interface Props {
   item: ItemType
+  action: 'link' | 'buy' | 'none'
 }
 
 export default function Item(props: Props) {
@@ -49,11 +51,22 @@ export default function Item(props: Props) {
             {item.price}$
           </Typography>
         </CardContent>
-        {!item.bought && (
+        {props.action === 'link' ? (
           <CardActions>
-            <Button size="small">buy item</Button>
+            <Link
+              to={`/item/${item.id}`}
+              style={{
+                textDecoration: 'none',
+              }}
+            >
+              <Button size="small">buy item</Button>
+            </Link>
           </CardActions>
-        )}
+        ) : props.action === 'buy' ? (
+          <CardActions>
+            <div>(stripe element)</div>
+          </CardActions>
+        ) : null}
       </Card>
     </Grow>
   )

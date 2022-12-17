@@ -1,22 +1,19 @@
-import { useGetItemsQuery } from '../../../__generated__/types-and-hooks'
+import { useGetItemQuery } from '../../../__generated__/types-and-hooks'
 
 // components
 import Item from '../../components/Item'
 import Box from '@mui/material/Box'
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useParams } from 'react-router-dom'
 
-interface Props {
-  bought: boolean
-}
+export default function ItemPage() {
+  let { itemId } = useParams()
 
-export default function ItemsPage(props: Props) {
-  const { data, loading, error } = useGetItemsQuery({
-    variables: {
-      filterBought: {
-        bought: props.bought,
-      },
-    },
+  if (!itemId) return null
+
+  const { data, loading, error } = useGetItemQuery({
+    variables: { id: itemId },
   })
 
   return (
@@ -32,14 +29,10 @@ export default function ItemsPage(props: Props) {
         <Alert severity="error">{error.message}</Alert>
       ) : loading ? (
         <CircularProgress />
+      ) : !data?.item ? (
+        <Alert severity="info">Item not found</Alert>
       ) : (
-        data?.items.map((item) => (
-          <Item
-            key={item.id}
-            item={item}
-            action={!item.bought ? 'link' : 'none'}
-          />
-        ))
+        <Item item={data.item} action={!data.item.bought ? 'buy' : 'none'} />
       )}
     </Box>
   )
