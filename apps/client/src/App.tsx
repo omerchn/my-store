@@ -1,10 +1,6 @@
-import './App.scss'
-
-// apollo
 import { ApolloClientProvider } from './lib/apollo'
-
-// router
 import { Router } from './Router'
+import './App.scss'
 
 function App() {
   return (

@@ -39,6 +39,7 @@ export default function ItemsPage(props: Props) {
           {props.addItemBtn && <AddItem refetch={refetch} />}
           <Box
             sx={{
+              width: '100%',
               padding: '1em',
               display: 'flex',
               flexWrap: 'wrap',

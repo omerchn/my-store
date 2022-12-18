@@ -3,6 +3,14 @@ import { objectType, arg, nonNull, idArg, makeSchema } from 'nexus'
 import { FilterBought, Item, ItemId, ItemInput } from './types'
 import * as items from '../src/services/items'
 
+import Stripe from 'stripe'
+const stripe = new Stripe(
+  'sk_test_51MFvisCrYW49QcGkudItIPzVCVZLhCDY4F8cjybxq6Wj6BQM3YOI7pJtxixdpjiRJqp7bWyA7QFRll3MNClQzL5c00skNPaIqH',
+  {
+    apiVersion: '2022-11-15',
+  }
+)
+
 export const schema = makeSchema({
   types: [
     objectType({
@@ -24,6 +32,25 @@ export const schema = makeSchema({
           },
           async resolve(_, { id }) {
             return await items.getOne(id)
+          },
+        })
+        t.nonNull.field('paymentIntent', {
+          type: objectType({
+            name: 'ClientSecret',
+            definition(t) {
+              t.nonNull.string('clientSecret')
+            },
+          }),
+          args: {
+            price: nonNull('Int'),
+          },
+          async resolve(_, { price }) {
+            const intent = await stripe.paymentIntents.create({
+              amount: price * 100,
+              currency: 'usd',
+            })
+            if (!intent.client_secret) throw 'Something went wrong'
+            return { clientSecret: intent.client_secret }
           },
         })
       },

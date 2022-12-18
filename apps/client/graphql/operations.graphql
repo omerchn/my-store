@@ -10,6 +10,12 @@ query getItems($filterBought: FilterBought!) {
   }
 }
 
+query createPaymentIntent($price: Int!) {
+  paymentIntent(price: $price) {
+    ...ClientSecretFields
+  }
+}
+
 mutation addItem($item: ItemInput!) {
   addItem(item: $item) {
     ...ItemFields
@@ -32,4 +38,8 @@ fragment ItemFields on Item {
   description
   price
   bought
+}
+
+fragment ClientSecretFields on ClientSecret {
+  clientSecret
 }

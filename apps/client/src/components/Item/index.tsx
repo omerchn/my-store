@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton'
 import { Link } from 'react-router-dom'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { useState } from 'react'
+import BuyElement from './BuyElement'
 
 interface Props {
   item: ItemType
@@ -96,7 +97,7 @@ export default function Item(props: Props) {
               <Button size="small">buy item</Button>
             </Link>
           ) : props.action === 'buy' ? (
-            <div>(stripe element)</div>
+            <BuyElement price={item.price} />
           ) : null}
         </CardActions>
       </Card>
