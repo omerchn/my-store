@@ -1,4 +1,7 @@
-import { Item as ItemType } from '../../../__generated__/types-and-hooks'
+import {
+  Item as ItemType,
+  useDeleteItemMutation,
+} from '../../../__generated__/types-and-hooks'
 
 // components
 import Card from '@mui/material/Card'
@@ -8,17 +11,32 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Grow from '@mui/material/Grow'
+import IconButton from '@mui/material/IconButton'
 import { Link } from 'react-router-dom'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import { useState } from 'react'
 
 interface Props {
   item: ItemType
   action: 'link' | 'buy' | 'none'
+  refetch: () => void
 }
 
 export default function Item(props: Props) {
+  const [show, setShow] = useState(true)
   const { item } = props
+  const [deleteItem] = useDeleteItemMutation()
+  const handleDelete = async () => {
+    await deleteItem({
+      variables: {
+        id: props.item.id,
+      },
+    })
+    setShow(false)
+    setTimeout(props.refetch, 250)
+  }
   return (
-    <Grow appear in>
+    <Grow appear in={show}>
       <Card
         sx={{
           margin: '.5em',
@@ -38,7 +56,23 @@ export default function Item(props: Props) {
             {!item.bought ? 'For Sale!' : 'Item has been purchased'}
           </Typography>
         </Alert>
-        <CardContent>
+        <CardContent
+          sx={{
+            position: 'relative',
+          }}
+        >
+          {props.action !== 'buy' && (
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: '0',
+                right: '0',
+              }}
+              onClick={handleDelete}
+            >
+              <DeleteOutlinedIcon color="disabled" />
+            </IconButton>
+          )}
           <Typography variant="h5" component="div">
             {item.name}
           </Typography>
@@ -51,8 +85,8 @@ export default function Item(props: Props) {
             {item.price}$
           </Typography>
         </CardContent>
-        {props.action === 'link' ? (
-          <CardActions>
+        <CardActions>
+          {props.action === 'link' ? (
             <Link
               to={`/item/${item.id}`}
               style={{
@@ -61,12 +95,10 @@ export default function Item(props: Props) {
             >
               <Button size="small">buy item</Button>
             </Link>
-          </CardActions>
-        ) : props.action === 'buy' ? (
-          <CardActions>
+          ) : props.action === 'buy' ? (
             <div>(stripe element)</div>
-          </CardActions>
-        ) : null}
+          ) : null}
+        </CardActions>
       </Card>
     </Grow>
   )

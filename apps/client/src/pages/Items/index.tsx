@@ -2,16 +2,18 @@ import { useGetItemsQuery } from '../../../__generated__/types-and-hooks'
 
 // components
 import Item from '../../components/Item'
+import AddItem from './AddItem'
 import Box from '@mui/material/Box'
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 
 interface Props {
   bought: boolean
+  addItemBtn: boolean
 }
 
 export default function ItemsPage(props: Props) {
-  const { data, loading, error } = useGetItemsQuery({
+  const { data, loading, error, refetch } = useGetItemsQuery({
     variables: {
       filterBought: {
         bought: props.bought,
@@ -22,10 +24,10 @@ export default function ItemsPage(props: Props) {
   return (
     <Box
       sx={{
-        padding: '2em 1em',
+        padding: '1em',
         display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       {error ? (
@@ -33,13 +35,26 @@ export default function ItemsPage(props: Props) {
       ) : loading ? (
         <CircularProgress />
       ) : (
-        data?.items.map((item) => (
-          <Item
-            key={item.id}
-            item={item}
-            action={!item.bought ? 'link' : 'none'}
-          />
-        ))
+        <>
+          {props.addItemBtn && <AddItem refetch={refetch} />}
+          <Box
+            sx={{
+              padding: '1em',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
+            {data?.items.map((item) => (
+              <Item
+                key={item.id}
+                item={item}
+                action={!item.bought ? 'link' : 'none'}
+                refetch={refetch}
+              />
+            ))}
+          </Box>
+        </>
       )}
     </Box>
   )
