@@ -7,8 +7,9 @@ import { useState } from 'react'
 // components
 import ItemModal from '../../components/ItemModal'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Fade from '@mui/material/Fade'
+import Fab from '@mui/material/Fab'
+import AddIcon from '@mui/icons-material/AddRounded'
 
 interface Props {
   refetch: () => void
@@ -19,7 +20,11 @@ export default function AddItem(props: Props) {
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
   const handleSubmit = async (data: ItemInput) => {
-    await addItem({ variables: { item: data } })
+    const res = await addItem({ variables: { item: data } })
+    if (res.errors) {
+      alert(res.errors[0])
+      return
+    }
     props.refetch()
     handleClose()
   }
@@ -27,9 +32,9 @@ export default function AddItem(props: Props) {
   return (
     <Fade appear in>
       <Box>
-        <Button variant="outlined" onClick={() => setOpen(true)}>
-          Add Item
-        </Button>
+        <Fab color="primary" onClick={() => setOpen(true)}>
+          <AddIcon />
+        </Fab>
         <ItemModal
           open={open}
           onClose={handleClose}

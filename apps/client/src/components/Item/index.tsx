@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton'
 import { Link } from 'react-router-dom'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { useState } from 'react'
-import BuyElement from './BuyElement'
+import BuyElementWrapper from './BuyElement'
 
 interface Props {
   item: ItemType
@@ -24,15 +24,19 @@ interface Props {
 }
 
 export default function Item(props: Props) {
-  const [show, setShow] = useState(true)
   const { item } = props
+  const [show, setShow] = useState(true)
   const [deleteItem] = useDeleteItemMutation()
   const handleDelete = async () => {
-    await deleteItem({
+    const res = await deleteItem({
       variables: {
         id: props.item.id,
       },
     })
+    if (res.errors) {
+      alert(res.errors[0])
+      return
+    }
     setShow(false)
     setTimeout(props.refetch, 250)
   }
@@ -97,7 +101,7 @@ export default function Item(props: Props) {
               <Button size="small">buy item</Button>
             </Link>
           ) : props.action === 'buy' ? (
-            <BuyElement price={item.price} />
+            <BuyElementWrapper item={item} />
           ) : null}
         </CardActions>
       </Card>

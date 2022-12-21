@@ -16,6 +16,7 @@ export default function ControlledTextField(props: FieldProps) {
     <TextField
       variant="standard"
       {...props.field}
+      value={props.field.value ?? ''}
       type={props.type}
       label={props.label}
       error={!!props.error}

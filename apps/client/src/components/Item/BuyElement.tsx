@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { useCreatePaymentIntentQuery } from '../../../__generated__/types-and-hooks'
+import {
+  Item,
+  useCreatePaymentIntentQuery,
+  useMarkBoughtMutation,
+} from '../../../__generated__/types-and-hooks'
 
 // stripe
 import { loadStripe } from '@stripe/stripe-js'
@@ -12,9 +16,10 @@ import {
 
 // components
 import Box from '@mui/material/Box'
-import CircularProgress from '@mui/material/CircularProgress'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
+import Skeleton from '@mui/material/Skeleton'
+import { useNavigate } from 'react-router-dom'
 
 const promise = loadStripe(
   'pk_test_51MFvisCrYW49QcGki2O1EarNLKOCbgNdyIraCowfK7VoovPxrIRQHCTZMcJpqH82ETZGZJntLE8xHLvIBkMF0b1Z00gKZfjIvF',
@@ -24,12 +29,12 @@ const promise = loadStripe(
 )
 
 interface Props {
-  price: number
+  item: Item
 }
 
-export default function BuyElement(props: Props) {
+export default function BuyElementWrapper(props: Props) {
   const { data } = useCreatePaymentIntentQuery({
-    variables: { price: props.price },
+    variables: { price: props.item.price },
   })
 
   return data ? (
@@ -49,47 +54,64 @@ export default function BuyElement(props: Props) {
           appearance: { theme: 'stripe' },
         }}
       >
-        <BuyElementInner />
+        <BuyElement id={props.item.id} />
       </Elements>
     </Box>
   ) : (
-    <CircularProgress sx={{ margin: 'auto' }} />
+    <Skeleton sx={{ width: '100%' }} />
   )
 }
 
-function BuyElementInner() {
+function BuyElement(props: { id: string }) {
   const stripe = useStripe()
   const elements = useElements()
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState<string | undefined>()
+  const [stripeLoading, setStripeLoading] = useState(false)
+  const [stripeError, setStripeError] = useState<string>()
+  const [markBought, markBoughtMutation] = useMarkBoughtMutation()
+  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     if (!stripe || !elements) return
 
-    setIsLoading(true)
+    setStripeLoading(true)
 
     const { error } = await stripe.confirmPayment({
       elements,
-      confirmParams: {
-        return_url: window.location.origin,
+      redirect: 'if_required',
+    })
+
+    setStripeLoading(false)
+
+    if (error) {
+      setStripeError(error.message)
+      return
+    }
+
+    const res = await markBought({
+      variables: {
+        id: props.id,
       },
     })
 
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      setMessage(error.message)
-    } else {
-      setMessage('An unexpected error occurred.')
+    if (!res.errors) {
+      navigate('/')
     }
-
-    setIsLoading(false)
   }
 
   return (
     <>
       <PaymentElement id="card-element" options={{ layout: 'accordion' }} />
-      {message && <Alert severity="error">{message}</Alert>}
-      <Button variant="contained" onClick={handleSubmit} disabled={isLoading}>
-        pay now
+      {(stripeError || markBoughtMutation.error) && (
+        <Alert severity="error">
+          {stripeError || markBoughtMutation.error?.message}
+        </Alert>
+      )}
+      <Button
+        variant="contained"
+        onClick={handleSubmit}
+        disabled={stripeLoading || markBoughtMutation.loading}
+      >
+        buy now
       </Button>
     </>
   )

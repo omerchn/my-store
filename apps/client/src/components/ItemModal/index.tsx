@@ -14,7 +14,6 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import Grow from '@mui/material/Grow'
 import Alert from '@mui/material/Alert'
-import CircularProgress from '@mui/material/CircularProgress'
 import { TransitionProps } from '@mui/material/transitions'
 
 const ItemSchema = z.object({
@@ -26,9 +25,9 @@ const ItemSchema = z.object({
 export type ItemInput = z.infer<typeof ItemSchema>
 
 const DEFAULT = {
-  name: '',
-  description: '',
-  price: 1,
+  name: undefined,
+  description: undefined,
+  price: undefined,
 }
 
 interface Props {
