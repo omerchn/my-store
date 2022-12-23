@@ -1,4 +1,4 @@
-// warps the generated items service callback-based RPCs in Promises
+// wrap the generated items service callback-based RPCs in Promises
 
 import * as grpc from '@grpc/grpc-js'
 import * as itemsService from '../../__generated__/items-service/items'
@@ -8,11 +8,13 @@ const itemsClient = new itemsService.ItemsClient(
   grpc.credentials.createInsecure()
 )
 
-console.log('waiting for items service...')
-itemsClient.waitForReady(Date.now() + 10000, (err) => {
-  if (!err) console.log('✅ Connected to Items Service')
-  else console.error(`❌ Can't Connect to Items Service, ${err}`)
-})
+export const logServiceConnection = () => {
+  console.log('waiting for items service...')
+  itemsClient.waitForReady(Date.now() + 10000, (err) => {
+    if (!err) console.log('✅ Connected to Items Service')
+    else console.error(`❌ Can't Connect to Items Service, ${err}`)
+  })
+}
 
 export const getAll = (filterBought: itemsService.FilterBought) => {
   return new Promise<Array<itemsService.Item>>((resolve, reject) => {

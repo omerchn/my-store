@@ -1,5 +1,5 @@
 import path from 'path'
-import { objectType, arg, nonNull, idArg, makeSchema } from 'nexus'
+import { objectType, arg, nonNull, makeSchema } from 'nexus'
 import { FilterBought, Item, ItemId, ItemInput } from './types'
 import * as items from '../src/services/items'
 
@@ -28,7 +28,7 @@ export const schema = makeSchema({
         t.field('item', {
           type: Item,
           args: {
-            id: nonNull(idArg()),
+            id: nonNull('ID'),
           },
           async resolve(_, { id }) {
             return await items.getOne(id)
@@ -71,7 +71,7 @@ export const schema = makeSchema({
         t.nonNull.field('deleteItem', {
           type: ItemId,
           args: {
-            id: nonNull(idArg()),
+            id: nonNull('ID'),
           },
           async resolve(_, { id }) {
             return await items.deleteOne(id)
@@ -80,7 +80,7 @@ export const schema = makeSchema({
         t.nonNull.field('markBought', {
           type: ItemId,
           args: {
-            id: nonNull(idArg()),
+            id: nonNull('ID'),
           },
           async resolve(_, { id }) {
             return await items.markBought(id)

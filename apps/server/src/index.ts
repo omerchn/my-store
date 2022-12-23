@@ -1,6 +1,7 @@
 import { startStandaloneServer } from '@apollo/server/standalone'
 import { ApolloServer } from '@apollo/server'
 import { schema } from '../graphql/schema'
+import { logServiceConnection as logItemsServiceConnection } from './services/items'
 
 const server = new ApolloServer({ schema })
 
@@ -13,3 +14,5 @@ startStandaloneServer(server, {
   .catch((err) => {
     console.log('❌ Error Starting GraphQL Server', err)
   })
+
+logItemsServiceConnection()
