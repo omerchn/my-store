@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  E-commerce website implementing React, Apollo, GraphQL, gRPC and Cassandra.
+  E-commerce website built with React, Apollo, GraphQL, gRPC and Cassandra.
 </h3>
 <h3 align="center">
   Monorepo'd using Turborepo.
