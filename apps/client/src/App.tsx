@@ -1,4 +1,5 @@
 import { ApolloClientProvider } from './lib/apollo'
+import { Toaster } from 'react-hot-toast'
 import { Router } from './Router'
 import './App.scss'
 
@@ -8,6 +9,7 @@ function App() {
       <ApolloClientProvider>
         <Router />
       </ApolloClientProvider>
+      <Toaster position="top-right" />
     </div>
   )
 }

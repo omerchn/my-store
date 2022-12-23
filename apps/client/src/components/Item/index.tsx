@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import {
   Item as ItemType,
   useDeleteItemMutation,
@@ -12,9 +15,7 @@ import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Grow from '@mui/material/Grow'
 import IconButton from '@mui/material/IconButton'
-import { Link } from 'react-router-dom'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import { useState } from 'react'
 import BuyElementWrapper from './BuyElement'
 
 interface Props {
@@ -34,9 +35,9 @@ export default function Item(props: Props) {
       },
     })
     if (res.errors) {
-      alert(res.errors[0])
-      return
+      return toast.error('Something went wrong')
     }
+    toast.success('Removed item')
     setShow(false)
     setTimeout(props.refetch, 250)
   }
@@ -101,7 +102,7 @@ export default function Item(props: Props) {
               <Button size="small">buy item</Button>
             </Link>
           ) : props.action === 'buy' ? (
-            <BuyElementWrapper item={item} />
+            <BuyElementWrapper item={item} refetch={props.refetch} />
           ) : null}
         </CardActions>
       </Card>

@@ -19,7 +19,6 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Skeleton from '@mui/material/Skeleton'
-import { useNavigate } from 'react-router-dom'
 
 const promise = loadStripe(
   'pk_test_51MFvisCrYW49QcGki2O1EarNLKOCbgNdyIraCowfK7VoovPxrIRQHCTZMcJpqH82ETZGZJntLE8xHLvIBkMF0b1Z00gKZfjIvF',
@@ -30,6 +29,7 @@ const promise = loadStripe(
 
 interface Props {
   item: Item
+  refetch: () => void
 }
 
 export default function BuyElementWrapper(props: Props) {
@@ -66,9 +66,11 @@ function BuyElement(props: { id: string }) {
   const stripe = useStripe()
   const elements = useElements()
   const [stripeLoading, setStripeLoading] = useState(false)
-  const [stripeError, setStripeError] = useState<string>()
+  const [message, setMessage] = useState<{
+    type: 'error' | 'success'
+    body: string
+  }>()
   const [markBought, markBoughtMutation] = useMarkBoughtMutation()
-  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     if (!stripe || !elements) return
@@ -83,7 +85,10 @@ function BuyElement(props: { id: string }) {
     setStripeLoading(false)
 
     if (error) {
-      setStripeError(error.message)
+      setMessage({
+        type: 'error',
+        body: error.message || 'Payment error',
+      })
       return
     }
 
@@ -93,25 +98,37 @@ function BuyElement(props: { id: string }) {
       },
     })
 
-    if (!res.errors) {
-      navigate('/')
+    if (res.errors) {
+      setMessage({
+        type: 'error',
+        body: 'Server error',
+      })
+      return
     }
+
+    setMessage({
+      type: 'success',
+      body: 'Successfully purchased item, redirecting to home page..',
+    })
+    setTimeout(() => {
+      window.location.href = '/'
+    }, 1000)
   }
 
   return (
     <>
       <PaymentElement id="card-element" options={{ layout: 'accordion' }} />
-      {(stripeError || markBoughtMutation.error) && (
-        <Alert severity="error">
-          {stripeError || markBoughtMutation.error?.message}
-        </Alert>
-      )}
+      {message?.type === 'error' ? (
+        <Alert severity="error">{message?.body}</Alert>
+      ) : message?.type === 'success' ? (
+        <Alert severity="success">{message?.body}</Alert>
+      ) : null}
       <Button
         variant="contained"
         onClick={handleSubmit}
         disabled={stripeLoading || markBoughtMutation.loading}
       >
-        buy now
+        Buy Now
       </Button>
     </>
   )

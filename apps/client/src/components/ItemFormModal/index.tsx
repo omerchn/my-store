@@ -38,7 +38,7 @@ interface Props {
   error?: string
 }
 
-export default function ItemModal(props: Props) {
+export default function ItemFormModal(props: Props) {
   const {
     handleSubmit,
     control,

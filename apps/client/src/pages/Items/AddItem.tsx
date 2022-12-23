@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import {
   ItemInput,
   useAddItemMutation,
@@ -5,7 +6,7 @@ import {
 import { useState } from 'react'
 
 // components
-import ItemModal from '../../components/ItemModal'
+import ItemFormModal from '../../components/ItemFormModal'
 import Box from '@mui/material/Box'
 import Fade from '@mui/material/Fade'
 import Fab from '@mui/material/Fab'
@@ -22,9 +23,9 @@ export default function AddItem(props: Props) {
   const handleSubmit = async (data: ItemInput) => {
     const res = await addItem({ variables: { item: data } })
     if (res.errors) {
-      alert(res.errors[0])
-      return
+      return toast.error('Something went wrong')
     }
+    toast.success('Added item')
     props.refetch()
     handleClose()
   }
@@ -35,7 +36,7 @@ export default function AddItem(props: Props) {
         <Fab color="primary" onClick={() => setOpen(true)}>
           <AddIcon />
         </Fab>
-        <ItemModal
+        <ItemFormModal
           open={open}
           onClose={handleClose}
           onSubmit={handleSubmit}
