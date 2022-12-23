@@ -32,6 +32,7 @@ export default function Nav() {
         }
       >
         <Tab
+          disabled
           label="hidden"
           value="hidden"
           sx={{
