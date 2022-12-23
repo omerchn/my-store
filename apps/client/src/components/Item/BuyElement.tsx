@@ -16,11 +16,13 @@ import {
 
 // components
 import Box from '@mui/material/Box'
+import Fade from '@mui/material/Grow'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Skeleton from '@mui/material/Skeleton'
 
 const promise = loadStripe(
+  // dev key
   'pk_test_51MFvisCrYW49QcGki2O1EarNLKOCbgNdyIraCowfK7VoovPxrIRQHCTZMcJpqH82ETZGZJntLE8xHLvIBkMF0b1Z00gKZfjIvF',
   {
     locale: 'en',
@@ -123,13 +125,18 @@ function BuyElement(props: { id: string }) {
       ) : message?.type === 'success' ? (
         <Alert severity="success">{message?.body}</Alert>
       ) : null}
-      <Button
-        variant="contained"
-        onClick={handleSubmit}
-        disabled={stripeLoading || markBoughtMutation.loading}
-      >
-        Buy Now
-      </Button>
+      <Fade appear in timeout={1000}>
+        <Box>
+          <Button
+            variant="contained"
+            sx={{ width: '100%' }}
+            onClick={handleSubmit}
+            disabled={stripeLoading || markBoughtMutation.loading}
+          >
+            Buy Now
+          </Button>
+        </Box>
+      </Fade>
     </>
   )
 }
