@@ -1,7 +1,7 @@
+import * as grpc from '@grpc/grpc-js'
 import * as stargate from '@stargate-oss/stargate-grpc-node-client'
-import { promisifiedClient } from './connect'
 
-const getGetFnName = (basic: number) => {
+const getFunction = (basic: number) => {
   if (basic === 13) return 'getString'
   if (basic === 8) return 'getFloat'
   if (basic === 4) return 'getBoolean'
@@ -11,25 +11,25 @@ const getGetFnName = (basic: number) => {
 export const responseToArray = (response: stargate.Response) => {
   const set = response.getResultSet()
   if (!set) return []
-  const columns: Array<{ name: string; getFnName: string }> = set
+  const columns: Array<{ name: string; function: string }> = set
     .getColumnsList()
     .map((col) => ({
       name: col.getName(),
-      getFnName: getGetFnName(col.getType()!.getBasic()),
+      function: getFunction(col.getType()!.getBasic()),
     }))
 
   const result: Array<unknown> = set.getRowsList().map((row) => {
     const rowObj: { [key: string]: any } = {}
-    row.getValuesList().forEach((value, i) => {
-      rowObj[columns[i].name] = (value as any)[columns[i].getFnName]()
+    row.getValuesList().forEach((value, index) => {
+      rowObj[columns[index].name] = (value as any)[columns[index].function]()
     })
     return rowObj
   })
   return result
 }
 
-export const query = async (qString: string) => {
-  const query = new stargate.Query()
-  query.setCql(qString)
-  return responseToArray(await promisifiedClient.executeQuery(query))
+export const databaseGrpcError: grpc.ServerErrorResponse = {
+  message: 'Error Connecting to Database',
+  name: 'Database Error',
+  code: 500,
 }

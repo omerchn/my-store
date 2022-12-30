@@ -1,7 +1,7 @@
 import path from 'path'
 import Mali from 'mali'
 import stream from 'stream'
-import * as queries from './stargate-cassandra/queries'
+import * as queries from './database/queries'
 
 // init server
 const PROTO_PATH = path.resolve(__dirname, '../proto/items.proto')

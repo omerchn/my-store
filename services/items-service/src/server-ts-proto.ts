@@ -1,6 +1,7 @@
 import * as grpc from '@grpc/grpc-js'
 import * as generated from '../__generated__/items-service/items'
-import * as queries from './stargate-cassandra/queries'
+import * as queries from './database/queries'
+import { databaseGrpcError } from './lib/stargate-cassandra/utils'
 
 // init server
 export const server = new grpc.Server()
@@ -9,22 +10,48 @@ export const server = new grpc.Server()
 // ✅ type safe
 const itemsServiceImplementation: generated.ItemsServer = {
   async streamAll(call) {
-    ;(await queries.getAll(call.request)).forEach((item) => call.write(item))
-    call.end()
+    try {
+      ;(await queries.getAll(call.request)).forEach((item) => call.write(item))
+      call.end()
+    } catch (err) {
+      console.error(err)
+      call.emit('error', databaseGrpcError)
+    }
   },
   async getOne(call, callback) {
-    callback(null, await queries.getOne(call.request))
+    try {
+      callback(null, await queries.getOne(call.request))
+    } catch (err) {
+      console.error(err)
+      callback(databaseGrpcError)
+    }
   },
   async addOne(call, callback) {
-    callback(null, await queries.addOne(call.request))
+    try {
+      callback(null, await queries.addOne(call.request))
+    } catch (err) {
+      console.error(err)
+      callback(databaseGrpcError)
+    }
   },
   async deleteOne(call, callback) {
-    callback(null, await queries.deleteOne(call.request))
+    try {
+      callback(null, await queries.deleteOne(call.request))
+    } catch (err) {
+      console.error(err)
+      callback(databaseGrpcError)
+    }
   },
   async markBought(call, callback) {
-    callback(null, await queries.markBoughtOne(call.request))
+    try {
+      callback(null, await queries.markBoughtOne(call.request))
+    } catch (err) {
+      console.error(err)
+      callback(databaseGrpcError)
+    }
   },
 }
+
 server.addService(generated.ItemsService, itemsServiceImplementation)
 
 // start server

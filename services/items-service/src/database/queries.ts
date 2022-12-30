@@ -1,6 +1,9 @@
 import { v4 as uuid } from 'uuid'
-import { query } from './utils'
 import * as generated from '../../__generated__/items-service/items'
+import { getClient } from '../lib/stargate-cassandra/client'
+import { env } from '../env'
+
+const { query } = getClient(env.ASTRA_TOKEN, env.ASTRA_URI)
 
 export const getAll = async ({ bought }: generated.FilterBought) => {
   const res = await query(
