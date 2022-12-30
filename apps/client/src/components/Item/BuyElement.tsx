@@ -16,7 +16,7 @@ import {
 
 // components
 import Box from '@mui/material/Box'
-import Fade from '@mui/material/Grow'
+import Grow from '@mui/material/Grow'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Skeleton from '@mui/material/Skeleton'
@@ -114,18 +114,22 @@ function BuyElement(props: { id: string }) {
     })
     setTimeout(() => {
       window.location.href = '/'
-    }, 1000)
+    }, 1500)
   }
 
   return (
     <>
       <PaymentElement id="card-element" options={{ layout: 'accordion' }} />
       {message?.type === 'error' ? (
-        <Alert severity="error">{message?.body}</Alert>
+        <Grow appear in timeout={1000}>
+          <Alert severity="error">{message?.body}</Alert>
+        </Grow>
       ) : message?.type === 'success' ? (
-        <Alert severity="success">{message?.body}</Alert>
+        <Grow appear in timeout={1000}>
+          <Alert severity="success">{message?.body}</Alert>
+        </Grow>
       ) : null}
-      <Fade appear in timeout={1000}>
+      <Grow appear in timeout={1000}>
         <Box>
           <Button
             variant="contained"
@@ -136,7 +140,7 @@ function BuyElement(props: { id: string }) {
             Buy Now
           </Button>
         </Box>
-      </Fade>
+      </Grow>
     </>
   )
 }

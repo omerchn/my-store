@@ -14,11 +14,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <ItemsPage bought={false} addItemBtn={true} />,
+        element: <ItemsPage bought={false} withAddItem={true} />,
       },
       {
         path: '/bought',
-        element: <ItemsPage bought={true} addItemBtn={false} />,
+        element: <ItemsPage bought={true} withAddItem={false} />,
       },
       {
         path: '/item/:itemId',

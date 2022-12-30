@@ -6,6 +6,9 @@ import {
   useDeleteItemMutation,
 } from '../../../__generated__/types-and-hooks'
 
+// hooks
+import { useAuth } from '../../hooks/useAuth'
+
 // components
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -25,6 +28,7 @@ interface Props {
 }
 
 export default function Item(props: Props) {
+  const { isAuthed } = useAuth()
   const { item } = props
   const [show, setShow] = useState(true)
   const [deleteItem] = useDeleteItemMutation()
@@ -67,7 +71,7 @@ export default function Item(props: Props) {
             position: 'relative',
           }}
         >
-          {props.action !== 'buy' && (
+          {props.action !== 'buy' && isAuthed && (
             <IconButton
               sx={{
                 position: 'absolute',

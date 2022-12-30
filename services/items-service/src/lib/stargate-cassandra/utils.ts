@@ -29,7 +29,7 @@ export const responseToArray = (response: stargate.Response) => {
 }
 
 export const databaseGrpcError: grpc.ServerErrorResponse = {
-  message: 'Error Connecting to Database',
+  message: 'Error Interfacing with Database',
   name: 'Database Error',
   code: 500,
 }

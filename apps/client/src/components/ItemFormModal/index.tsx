@@ -70,17 +70,32 @@ export default function ItemFormModal(props: Props) {
         <DialogContent>
           <DialogContentText>Enter Item Details</DialogContentText>
           <Box display="flex" flexDirection="column">
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <ControlledTextField
-                  field={field}
-                  label="name"
-                  error={errors.name}
-                />
-              )}
-            />
+            <Box display="flex" flexWrap="wrap" gap=".5em">
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <ControlledTextField
+                    field={field}
+                    label="name"
+                    error={errors.name}
+                  />
+                )}
+              />
+              <Controller
+                name="price"
+                control={control}
+                render={({ field }) => (
+                  <ControlledTextField
+                    type="number"
+                    field={field}
+                    label="price (USD)"
+                    error={errors.price}
+                    sx={{ width: '6em' }}
+                  />
+                )}
+              />
+            </Box>
             <Controller
               name="description"
               control={control}
@@ -89,18 +104,6 @@ export default function ItemFormModal(props: Props) {
                   field={field}
                   label="description"
                   error={errors.description}
-                />
-              )}
-            />
-            <Controller
-              name="price"
-              control={control}
-              render={({ field }) => (
-                <ControlledTextField
-                  type="number"
-                  field={field}
-                  label="price (USD)"
-                  error={errors.price}
                 />
               )}
             />

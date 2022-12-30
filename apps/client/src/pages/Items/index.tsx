@@ -1,5 +1,8 @@
 import { useGetItemsQuery } from '../../../__generated__/types-and-hooks'
 
+// hooks
+import { useAuth } from '../../hooks/useAuth'
+
 // components
 import Item from '../../components/Item'
 import AddItem from './AddItem'
@@ -9,10 +12,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 interface Props {
   bought: boolean
-  addItemBtn: boolean
+  withAddItem: boolean
 }
 
 export default function ItemsPage(props: Props) {
+  const { isAuthed } = useAuth()
   const { data, loading, error, refetch } = useGetItemsQuery({
     variables: {
       filterBought: {
@@ -36,7 +40,7 @@ export default function ItemsPage(props: Props) {
         <CircularProgress />
       ) : (
         <>
-          {props.addItemBtn && <AddItem refetch={refetch} />}
+          {props.withAddItem && isAuthed && <AddItem refetch={refetch} />}
           <Box
             sx={{
               width: '100%',
