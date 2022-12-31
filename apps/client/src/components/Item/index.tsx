@@ -19,6 +19,7 @@ import Alert from '@mui/material/Alert'
 import Grow from '@mui/material/Grow'
 import IconButton from '@mui/material/IconButton'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import Fade from '@mui/material/Fade'
 import BuyElementWrapper from './BuyElement'
 
 interface Props {
@@ -72,16 +73,18 @@ export default function Item(props: Props) {
           }}
         >
           {props.action !== 'buy' && isAuthed && (
-            <IconButton
-              sx={{
-                position: 'absolute',
-                top: '0',
-                right: '0',
-              }}
-              onClick={handleDelete}
-            >
-              <DeleteOutlinedIcon color="disabled" />
-            </IconButton>
+            <Fade appear in>
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  top: '0',
+                  right: '0',
+                }}
+                onClick={handleDelete}
+              >
+                <DeleteOutlinedIcon color="disabled" />
+              </IconButton>
+            </Fade>
           )}
           <Typography variant="h5" component="div">
             {item.name}

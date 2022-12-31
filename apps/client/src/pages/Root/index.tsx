@@ -9,16 +9,7 @@ export default function Root() {
   return (
     <Box>
       <Box position="relative">
-        <Box
-          sx={{
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            height: '100%',
-            zIndex: '1',
-            padding: '0 1em',
-          }}
-        >
+        <Box>
           <Auth />
         </Box>
         <Nav />

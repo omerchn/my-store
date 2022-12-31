@@ -9,7 +9,16 @@ export default function Auth() {
   const { isAuthed, login, logout } = useAuth()
 
   return (
-    <Box>
+    <Box
+      sx={{
+        position: 'absolute',
+        display: 'flex',
+        alignItems: 'center',
+        height: '100%',
+        zIndex: '1',
+        padding: '0 1em',
+      }}
+    >
       {!isAuthed ? (
         <Button variant="contained" onClick={login}>
           login
